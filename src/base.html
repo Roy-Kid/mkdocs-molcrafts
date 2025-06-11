@@ -27,9 +27,9 @@
     <script id="mkdocs-config" type="application/json">
       {{ {
             "site_name": config.site_name,
+            "nav": config.nav, 
           } | tojson }}
     </script>
-
 </body>
 </html>
 {% if page and page.is_homepage %}

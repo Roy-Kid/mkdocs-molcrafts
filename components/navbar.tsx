@@ -54,16 +54,17 @@ export const Navbar = () => {
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
-          <NavigationMenuItem className="font-bold flex">
+            <NavigationMenuItem className="font-bold flex items-center">
             <a
               rel="noreferrer noopener"
               href="/"
-              className="ml-2 font-bold text-xl flex"
+              className="ml-2 font-bold text-2xl flex items-center"
+              style={{ lineHeight: 1 }}
             >
-              <LogoIcon />
-              ShadcnUI/React
+              <LogoIcon className="mr-4" />
+              {themeConfig.site_name}
             </a>
-          </NavigationMenuItem>
+            </NavigationMenuItem>
 
           {/* mobile */}
           <span className="flex md:hidden">
