@@ -26,28 +26,23 @@ interface RouteProps {
   label: string;
 }
 
-const routeList: RouteProps[] = [
-  {
-    href: "#features",
-    label: "Features",
-  },
-  {
-    href: "#testimonials",
-    label: "Testimonials",
-  },
-  {
-    href: "#pricing",
-    label: "Pricing",
-  },
-  {
-    href: "#faq",
-    label: "FAQ",
-  },
-];
-
 export const Navbar = () => {
 
   const site_name = themeConfig.site_name;
+
+  const routeList: RouteProps[] = [];
+    console.log("themeConfig.nav", themeConfig.nav);
+    if (themeConfig.nav) {
+      // nav is array of [{Home: 'index.md'}, ]
+      for (const route of themeConfig.nav) {
+        const [key, value] = Object.entries(route)[0]
+        routeList.push({
+          href: value,
+          label: key,
+        });
+      }
+    }
+    console.log("routeList", routeList);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (

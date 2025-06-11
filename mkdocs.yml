@@ -3,3 +3,8 @@ site_name: Molcrafts theme
 theme:
   name: null
   custom_dir: 'dist/'
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Contact: contact.md
