@@ -8,6 +8,9 @@ const sections = [
   { id: "introduction", title: "Introduction" },
   { id: "installation", title: "Installation" },
   { id: "usage", title: "Usage" },
+  { id: "configuration", title: "Configuration" },
+  { id: "api", title: "API" },
+  { id: "faq", title: "FAQ" },
 ];
 
 export const MainPage = () => {
@@ -26,6 +29,18 @@ export const MainPage = () => {
           <section id="usage" className="space-y-2">
             <h2>Usage</h2>
             <p>Examples of how to use the library in your project.</p>
+          </section>
+          <section id="configuration" className="space-y-2">
+            <h2>Configuration</h2>
+            <p>Guidance on configuring various options.</p>
+          </section>
+          <section id="api" className="space-y-2">
+            <h2>API</h2>
+            <p>Summary of public API endpoints.</p>
+          </section>
+          <section id="faq" className="space-y-2">
+            <h2>FAQ</h2>
+            <p>Frequently asked questions and their answers.</p>
           </section>
         </DocumentationLayout>
       </BaseLayout>
