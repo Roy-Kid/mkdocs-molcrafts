@@ -22,7 +22,12 @@
 </head>
 
 <body class="bg-background text-foreground min-h-screen" role="document">
-    <div id="react-root"> </div>
+
+    {%- block content %}
+
+    {%- endblock %}
+    
+    <div id="react-root"></div>
     <div id="version"></div>
     <script id="mkdocs-config" type="application/json">
       {{ {

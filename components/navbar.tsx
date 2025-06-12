@@ -1,37 +1,20 @@
-import { useState } from "react";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { buttonVariants } from "./ui/button";
-import { Menu } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import { DocTheme } from "../DocumentationLayout";
 import { ModeToggle } from "./mode-toggle";
-import { LogoIcon } from "./Icons.tsx";
-import { themeConfig } from "./theme-config";
+import { LogoIcon } from "./Icons";
 
-
-interface RouteProps {
-  href: string;
-  label: string;
+interface DocsNavbarProps {
+  site_name: string;
 }
 
-export const Navbar = () => {
+export const DocsNavbar: React.FC<DocsNavbarProps> = ({ site_name }) => {
+
+  const title = site_name.charAt(0).toUpperCase() + theme.slice(1);
 
   const site_name = themeConfig.site_name;
 
   const routeList: RouteProps[] = [];
-    console.log("themeConfig.nav", themeConfig.nav);
     if (themeConfig.nav) {
       // nav is array of [{Home: 'index.md'}, ]
       for (const route of themeConfig.nav) {
@@ -42,108 +25,51 @@ export const Navbar = () => {
         });
       }
     }
-    console.log("routeList", routeList);
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
-      <NavigationMenu className="mx-auto">
-        <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
-            <NavigationMenuItem className="font-bold flex items-center">
-            <a
-              rel="noreferrer noopener"
-              href="/"
-              className="ml-2 font-bold text-2xl flex items-center"
-              style={{ lineHeight: 1 }}
-            >
-              <LogoIcon className="mr-4" />
-              {themeConfig.site_name}
-            </a>
-            </NavigationMenuItem>
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className={`sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b ${styles.border} py-3`}
+    >
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        <div className="flex items-center space-x-6">
+          {/* <motion.a
+            href="/"
+            className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+            whileHover={{ x: -5 }}
+          >
+            <ChevronLeft size={20} />
+            <span className="font-medium">Home</span>
+          </motion.a> */}
 
-          {/* mobile */}
-          <span className="flex md:hidden">
-            <ModeToggle />
-
-            <Sheet
-              open={isOpen}
-              onOpenChange={setIsOpen}
-            >
-              <SheetTrigger className="px-2">
-                <Menu
-                  className="flex md:hidden h-5 w-5"
-                  onClick={() => setIsOpen(true)}
-                >
-                  <span className="sr-only">Menu Icon</span>
-                </Menu>
-              </SheetTrigger>
-
-              <SheetContent side={"left"}>
-                <SheetHeader>
-                  <SheetTitle className="font-bold text-xl">
-                    {site_name}
-                  </SheetTitle>
-                  <SheetDescription></SheetDescription>
-                </SheetHeader>
-                <nav className="flex flex-col justify-center items-center gap-2 mt-4">
-                  {routeList.map(({ href, label }: RouteProps) => (
-                    <a
-                      rel="noreferrer noopener"
-                      key={label}
-                      href={href}
-                      onClick={() => setIsOpen(false)}
-                      className={buttonVariants({ variant: "ghost" })}
-                    >
-                      {label}
-                    </a>
-                  ))}
-                  <a
-                    rel="noreferrer noopener"
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
-                    className={`w-[110px] border ${buttonVariants({
-                      variant: "secondary",
-                    })}`}
-                  >
-                    <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                    Github
-                  </a>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </span>
-
-          {/* desktop */}
-          <nav className="hidden md:flex gap-2">
-            {routeList.map((route: RouteProps, i) => (
-              <a
-                rel="noreferrer noopener"
-                href={route.href}
-                key={i}
-                className={`text-[17px] ${buttonVariants({
-                  variant: "ghost",
-                })}`}
-              >
-                {route.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="hidden md:flex gap-2">
-            <a
-              rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
-            >
-              <GitHubLogoIcon className="mr-2 w-5 h-5" />
-              Github
-            </a>
-
-            <ModeToggle />
+          <div className="flex items-center space-x-3">
+            <LogoIcon />
+            <span className={`font-bold text-lg ${styles.accent}`}>{title} Documentation</span>
           </div>
-        </NavigationMenuList>
-      </NavigationMenu>
-    </header>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <div className="flex space-x-3">
+            {routeList.map((route) => (
+              <motion.a
+              key={route.href}
+              href={route.href}
+              className={`text-sm font-medium ${
+                theme === route.label.toLowerCase()
+                ? styles.accent
+                : "text-muted-foreground"
+              } ${styles.hover} transition-colors`}
+              whileHover={{ y: -2 }}
+              >
+              {route.label}
+              </motion.a>
+            ))}
+          </div>
+          <ModeToggle />
+        </div>
+      </div>
+    </motion.header>
   );
-};
+}; 
