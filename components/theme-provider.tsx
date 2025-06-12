@@ -1,17 +1,13 @@
-import * as React from "react";
+import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import type { IThemeConfig } from "./theme-config";
-import { DocsNavbar } from "./navbar";
 import "../src/globals.css";
 
 type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
-  config: IThemeConfig;
 };
 
 type ThemeProviderState = {
@@ -21,7 +17,7 @@ type ThemeProviderState = {
     accent: string;
     hover: string;
     border: string;
-  }
+  };
 };
 
 const initialState: ThemeProviderState = {
@@ -30,8 +26,8 @@ const initialState: ThemeProviderState = {
   color: {
     accent: "text-blue-600 dark:text-blue-400",
     hover: "hover:text-blue-700 dark:hover:text-blue-300",
-    border: "border-blue-200 dark:border-blue-800"
-  }
+    border: "border-blue-200 dark:border-blue-800",
+  },
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
@@ -40,13 +36,10 @@ export const MolCraftsDocThemeProvider = ({
   children,
   defaultTheme = "dark",
   storageKey = "vite-ui-theme",
-  ...props
 }: ThemeProviderProps) => {
-  const { config } = props;
   const [theme, setTheme] = useState<Theme>(
     () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
-  console.log("config", config);
   useEffect(() => {
     const root = window.document.documentElement;
 
@@ -74,22 +67,8 @@ export const MolCraftsDocThemeProvider = ({
   };
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.5 }}
-        className="min-h-screen bg-background dark:bg-background"
-      >
-        <DocsNavbar site_name={config.site_name} />
-        <div className="pt-4">
-          <div className="container mx-auto px-4">
-            <main>{children}</main>
-          </div>
-        </div>
-        {/* <DocsFooter site_name={config.site_name} /> */}
-      </motion.div>
+    <ThemeProviderContext.Provider value={value}>
+      {children}
     </ThemeProviderContext.Provider>
   );
 };
