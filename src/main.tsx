@@ -16,11 +16,17 @@ const extractPageContent = () => {
 export const MainPage = () => {
 
     const pageContent = extractPageContent();
+    console.log("Page content extracted:", pageContent);
+    console.log("TOC:", window.mkdocs_page_toc);
+    const sections = window.mkdocs_page_toc.map((item) => ({
+      id: item.id,
+      title: item.title,
+    }));
 
   return (
     <MolCraftsDocThemeProvider>
       <BaseLayout config={themeConfig}>
-        <DocumentationLayout>
+        <DocumentationLayout theme="molvis" sections={sections}>
           {pageContent}
         </DocumentationLayout>
       </BaseLayout>
@@ -28,7 +34,7 @@ export const MainPage = () => {
   );
 };
 
-const root = createRoot(document.getElementById("main-root"));
+const root = createRoot(document.getElementById("react-root"));
 
 if (root) {
   root.render(<MainPage />);

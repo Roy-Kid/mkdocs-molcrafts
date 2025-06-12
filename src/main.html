@@ -2,17 +2,11 @@
 
 {% block content %}
 
-    <script>
-        var mkdocs_page_name = {{ page.title|tojson }};
-        var mkdocs_page_input_path = {{ page.file.src_path|string|tojson }};
-        var mkdocs_page_url = {{ page.abs_url|tojson }};
-        console.log("Page TOC: ", {{ page.toc|tojson }});
+    <script id="mkdocs-page" type="application/json">
+        var mkdocs_page = {{ page }};
     </script>
 
-    <dev id="page-content">
+    <div id="page-content">
         {{ page.content }}
-    </dev>
-
-    <div id="main-root">
     </div>
 {% endblock %}

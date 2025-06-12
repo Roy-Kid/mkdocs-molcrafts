@@ -6,11 +6,6 @@ import { DocsNavbar } from "./navbar";
 import { DocSidebar } from "./sidebar";
 import type { IThemeConfig } from "./theme-config";
 
-interface Section {
-  title: string;
-  id: string;
-}
-
 interface DocumentationLayoutProps {
   children?: ReactNode;
 }
