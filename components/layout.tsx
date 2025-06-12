@@ -1,30 +1,19 @@
 import type { ReactNode } from "react";
-import { useState } from "react";
-import { DocumentBody } from "./document-body";
-import { DocsFooter } from "./footer";
-import { DocsNavbar } from "./navbar";
-import { DocSidebar } from "./sidebar";
-import type { IThemeConfig } from "./theme-config";
 
+interface DocumentationLayoutProps {
+  children?: ReactNode;
 }
 
-  color?: string;
-  color = "purple",
-  const activeClass = `bg-${color}-800`;
+export const DocumentationLayout = ({ children }: DocumentationLayoutProps) => {
+  return <div className="prose dark:prose-invert max-w-none">{children}</div>;
+};
 
-          activeClass={activeClass}
-
-interface BaseLayoutProps {
-  children: ReactNode;
-  config: IThemeConfig;
+export interface NotFoundLayoutProps {
+  children?: ReactNode;
 }
 
-export const BaseLayout = ({ children, config }: BaseLayoutProps) => {
+export const NotFoundLayout = ({ children }: NotFoundLayoutProps) => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <DocsNavbar site_name={config.site_name} nav={config.nav} />
-      <main className="flex-1 container mx-auto px-4 pt-4">{children}</main>
-      <DocsFooter site_name={config.site_name} />
-    </div>
+    <div className="flex items-center justify-center py-20">{children}</div>
   );
 };

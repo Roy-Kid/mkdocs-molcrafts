@@ -4,37 +4,4 @@
     <div id="page-content" hidden>
         {% include "content.html" %}
     </div>
-    {% macro toc_to_json(toc) %}
-        [
-        {%- for item in toc %}
-            {
-                "id": {{ item.id | tojson }},
-                "title": {{ item.title | tojson }},
-                "children": {{ toc_to_json(item.children) }}
-            }{%- if not loop.last %},{% endif %}
-        {%- endfor %}
-        ]
-    {% endmacro %}
-    <script id="mkdocs-toc" type="application/json">{{ toc_to_json(page.toc) }}</script>
-{% endblock %}
-    <script id="mkdocs-page">
-        var mkdocs_page_title = {{ page.title|tojson }};
-    </script>
-
-    <div id="document-page">
-        <div id="page-content">
-            {{ page.content }}
-        </div>
-        <div id="page-toc">
-            <ul>
-            {% for toc_item in page.toc %}
-                <li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
-                {% for toc_item in toc_item.children %}
-                    <li><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
-                {% endfor %}
-            {% endfor %}
-            </ul>
-        </div>
-    </div>
-
 {% endblock %}

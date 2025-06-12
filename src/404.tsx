@@ -1,5 +1,6 @@
-import { NotFoundLayout, BaseLayout } from "@/components/layout";
-import { themeConfig } from "@/components/theme-config";
+import { BaseLayout } from "@/components/base-layout";
+import { NotFoundLayout } from "@/components/layout";
+import { ThemeDataProvider } from "@/components/theme-config";
 import { MolCraftsDocThemeProvider } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,8 +10,9 @@ import { createRoot } from "react-dom/client";
 const NotFoundPage = () => {
   return (
     <MolCraftsDocThemeProvider>
-      <BaseLayout config={themeConfig}>
-        <NotFoundLayout>
+      <ThemeDataProvider>
+        <BaseLayout>
+          <NotFoundLayout>
           <Card className="max-w-md w-full shadow-lg">
             <CardHeader>
               <CardTitle className="text-4xl font-bold text-center text-destructive">
@@ -26,8 +28,9 @@ const NotFoundPage = () => {
               </Button>
             </CardContent>
           </Card>
-        </NotFoundLayout>
-      </BaseLayout>
+          </NotFoundLayout>
+        </BaseLayout>
+      </ThemeDataProvider>
     </MolCraftsDocThemeProvider>
   );
 };
