@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <div id="page-content" hidden>
+        {% include "content.html" %}
+    </div>
+    <script id="mkdocs-toc" type="application/json">{{ page.toc | tojson }}</script>
 
     <script id="mkdocs-page">
         var mkdocs_page_title = {{ page.title|tojson }};
