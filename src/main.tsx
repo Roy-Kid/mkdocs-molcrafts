@@ -1,15 +1,28 @@
-import { BaseLayout } from "@/components/base-layout";
-import { DocumentationLayout } from "@/components/layout";
+import { BaseLayout, DocumentationLayout } from "@/components/layout";
 import { themeConfig } from "@/components/theme-config";
 import { MolCraftsDocThemeProvider } from "@/components/theme-provider";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 
+const extractPageContent = () => {
+    const page_content_container = document.getElementById("page-content");
+    if (page_content_container) {
+        const page_content = page_content_container.innerHTML;
+        page_content_container.remove();
+        return page_content;
+    }
+}
+
 export const MainPage = () => {
+
+    const pageContent = extractPageContent();
+
   return (
     <MolCraftsDocThemeProvider>
       <BaseLayout config={themeConfig}>
-        <DocumentationLayout />
+        <DocumentationLayout>
+          {pageContent}
+        </DocumentationLayout>
       </BaseLayout>
     </MolCraftsDocThemeProvider>
   );

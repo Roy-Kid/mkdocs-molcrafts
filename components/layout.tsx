@@ -6,8 +6,6 @@ import { DocsNavbar } from "./navbar";
 import { DocSidebar } from "./sidebar";
 import type { IThemeConfig } from "./theme-config";
 
-export type DocTheme = "molpy" | "molpot" | "molvis";
-
 interface Section {
   title: string;
   id: string;
@@ -15,27 +13,15 @@ interface Section {
 
 interface DocumentationLayoutProps {
   children?: ReactNode;
-  theme?: DocTheme;
-  sections?: Section[];
 }
 
 export const DocumentationLayout = ({
   children,
-  theme = "molpy",
-  sections = [],
 }: DocumentationLayoutProps) => {
-  const [activeSectionId, setActiveSectionId] = useState(sections[0]?.id ?? "");
 
   return (
     <div className="flex gap-8">
-      {sections.length > 0 && (
-        <DocSidebar
-          theme={theme}
-          sections={sections}
-          activeSectionId={activeSectionId}
-          onSectionClick={setActiveSectionId}
-        />
-      )}
+      <DocSidebar/>
       <DocumentBody>{children}</DocumentBody>
     </div>
   );

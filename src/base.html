@@ -30,10 +30,8 @@
     <div id="react-root"></div>
     <div id="version"></div>
     <script id="mkdocs-config" type="application/json">
-      {{ {
-            "site_name": config.site_name,
-            "nav": config.nav, 
-          } | tojson }}
+      var mkdoc_config = {{ config|tojson }};
+      var mkdoc_nav = {{ nav|tojson }};
     </script>
 </body>
 </html>
