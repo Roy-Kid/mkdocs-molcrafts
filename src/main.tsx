@@ -1,6 +1,6 @@
 import { BaseLayout } from "@/components/base-layout";
 import { DocumentationLayout } from "@/components/layout";
-import { themeConfig } from "@/components/theme-config";
+import { ThemeDataProvider } from "@/components/theme-config";
 import { MolCraftsDocThemeProvider } from "@/components/theme-provider";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
@@ -8,9 +8,11 @@ import { createRoot } from "react-dom/client";
 export const MainPage = () => {
   return (
     <MolCraftsDocThemeProvider>
-      <BaseLayout config={themeConfig}>
-        <DocumentationLayout />
-      </BaseLayout>
+      <ThemeDataProvider>
+        <BaseLayout>
+          <DocumentationLayout />
+        </BaseLayout>
+      </ThemeDataProvider>
     </MolCraftsDocThemeProvider>
   );
 };
