@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
+import "../src/globals.css";
 
 type Theme = "dark" | "light" | "system";
 
 type ThemeProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultTheme?: Theme;
   storageKey?: string;
 };
@@ -11,25 +13,33 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  color: {
+    accent: string;
+    hover: string;
+    border: string;
+  };
 };
 
 const initialState: ThemeProviderState = {
   theme: "system",
   setTheme: () => null,
+  color: {
+    accent: "text-blue-600 dark:text-blue-400",
+    hover: "hover:text-blue-700 dark:hover:text-blue-300",
+    border: "border-blue-200 dark:border-blue-800",
+  },
 };
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-export function ThemeProvider({
+export const MolCraftsDocThemeProvider = ({
   children,
   defaultTheme = "dark",
   storageKey = "vite-ui-theme",
-  ...props
-}: ThemeProviderProps) {
+}: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
   );
-
   useEffect(() => {
     const root = window.document.documentElement;
 
@@ -57,14 +67,11 @@ export function ThemeProvider({
   };
 
   return (
-    <ThemeProviderContext.Provider
-      {...props}
-      value={value}
-    >
+    <ThemeProviderContext.Provider value={value}>
       {children}
     </ThemeProviderContext.Provider>
   );
-}
+};
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext);

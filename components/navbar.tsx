@@ -1,149 +1,39 @@
-import { useState } from "react";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { buttonVariants } from "./ui/button";
-import { Menu } from "lucide-react";
+import { LogoIcon } from "./Icons";
 import { ModeToggle } from "./mode-toggle";
-import { LogoIcon } from "./Icons.tsx";
-import { themeConfig } from "./theme-config";
 
-
-interface RouteProps {
+export interface RouteProps {
   href: string;
   label: string;
 }
 
-export const Navbar = () => {
+interface DocsNavbarProps {
+  site_name: string;
+  nav?: RouteProps[];
+}
 
-  const site_name = themeConfig.site_name;
-
-  const routeList: RouteProps[] = [];
-    console.log("themeConfig.nav", themeConfig.nav);
-    if (themeConfig.nav) {
-      // nav is array of [{Home: 'index.md'}, ]
-      for (const route of themeConfig.nav) {
-        const [key, value] = Object.entries(route)[0]
-        routeList.push({
-          href: value,
-          label: key,
-        });
-      }
-    }
-    console.log("routeList", routeList);
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+export const DocsNavbar = ({ site_name, nav = [] }: DocsNavbarProps) => {
   return (
-    <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
-      <NavigationMenu className="mx-auto">
-        <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
-            <NavigationMenuItem className="font-bold flex items-center">
-            <a
-              rel="noreferrer noopener"
-              href="/"
-              className="ml-2 font-bold text-2xl flex items-center"
-              style={{ lineHeight: 1 }}
-            >
-              <LogoIcon className="mr-4" />
-              {themeConfig.site_name}
-            </a>
-            </NavigationMenuItem>
-
-          {/* mobile */}
-          <span className="flex md:hidden">
-            <ModeToggle />
-
-            <Sheet
-              open={isOpen}
-              onOpenChange={setIsOpen}
-            >
-              <SheetTrigger className="px-2">
-                <Menu
-                  className="flex md:hidden h-5 w-5"
-                  onClick={() => setIsOpen(true)}
-                >
-                  <span className="sr-only">Menu Icon</span>
-                </Menu>
-              </SheetTrigger>
-
-              <SheetContent side={"left"}>
-                <SheetHeader>
-                  <SheetTitle className="font-bold text-xl">
-                    {site_name}
-                  </SheetTitle>
-                  <SheetDescription></SheetDescription>
-                </SheetHeader>
-                <nav className="flex flex-col justify-center items-center gap-2 mt-4">
-                  {routeList.map(({ href, label }: RouteProps) => (
-                    <a
-                      rel="noreferrer noopener"
-                      key={label}
-                      href={href}
-                      onClick={() => setIsOpen(false)}
-                      className={buttonVariants({ variant: "ghost" })}
-                    >
-                      {label}
-                    </a>
-                  ))}
-                  <a
-                    rel="noreferrer noopener"
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
-                    className={`w-[110px] border ${buttonVariants({
-                      variant: "secondary",
-                    })}`}
-                  >
-                    <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                    Github
-                  </a>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </span>
-
-          {/* desktop */}
-          <nav className="hidden md:flex gap-2">
-            {routeList.map((route: RouteProps, i) => (
+    <header className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur-md py-3">
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <LogoIcon />
+          <span className="font-bold text-lg">{site_name}</span>
+        </div>
+        <div className="flex items-center space-x-4">
+          <nav className="flex space-x-3">
+            {nav.map((route) => (
               <a
-                rel="noreferrer noopener"
+                key={route.href}
                 href={route.href}
-                key={i}
-                className={`text-[17px] ${buttonVariants({
-                  variant: "ghost",
-                })}`}
+                className="text-sm font-medium hover:underline"
               >
                 {route.label}
               </a>
             ))}
           </nav>
-
-          <div className="hidden md:flex gap-2">
-            <a
-              rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
-              className={`border ${buttonVariants({ variant: "secondary" })}`}
-            >
-              <GitHubLogoIcon className="mr-2 w-5 h-5" />
-              Github
-            </a>
-
-            <ModeToggle />
-          </div>
-        </NavigationMenuList>
-      </NavigationMenu>
+          <ModeToggle />
+        </div>
+      </div>
     </header>
   );
 };
