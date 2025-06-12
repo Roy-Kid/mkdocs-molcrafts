@@ -1,7 +1,7 @@
 site_name: Molcrafts theme
 
 theme:
-  name: null
+  name: mkdocs
   custom_dir: 'dist/'
 
 theme_color: purple
