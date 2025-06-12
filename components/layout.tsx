@@ -27,7 +27,7 @@ export const DocumentationLayout = ({
   const [activeSectionId, setActiveSectionId] = useState(sections[0]?.id ?? "");
 
   return (
-    <div className="flex gap-8">
+    <div className="flex items-start gap-8">
       {sections.length > 0 && (
         <DocSidebar
           theme={theme}
