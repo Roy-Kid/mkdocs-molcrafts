@@ -27,9 +27,11 @@
 
     {%- endblock %}
     <script id="mkdocs-config" type="application/json">
-            "nav": config.nav,
-            "color": config.theme_color
-      var mkdoc_nav = {{ nav }};
+      {
+        "site_name": {{ config.site_name|tojson }},
+        "nav": {{ nav|tojson }},
+        "theme_color": {{ config.theme_color|tojson }}
+      }
     </script>
     <div id="react-root"></div>
 </body>

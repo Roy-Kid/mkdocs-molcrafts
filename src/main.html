@@ -17,8 +17,8 @@
     {% endmacro %}
     <script id="mkdocs-toc" type="application/json">{{ toc_to_json(page.toc) }}</script>
 {% endblock %}
-    <script id="mkdocs-page">
-        var mkdocs_page_title = {{ page.title|tojson }};
+    <script id="mkdocs-page" type="application/json">
+      {"title": {{ page.title|tojson }}}
     </script>
 
     <div id="document-page">
