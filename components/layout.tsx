@@ -16,8 +16,7 @@ export const DocumentationLayout = ({
 
   return (
     <div className="flex gap-8">
-      <DocSidebar/>
-      <DocumentBody>{children}</DocumentBody>
+       { children }
     </div>
   );
 };

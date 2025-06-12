@@ -1,4 +1,6 @@
+import { DocumentBody } from "@/components/document-body";
 import { BaseLayout, DocumentationLayout } from "@/components/layout";
+import { DocSidebar } from "@/components/sidebar";
 import { themeConfig } from "@/components/theme-config";
 import { MolCraftsDocThemeProvider } from "@/components/theme-provider";
 import * as React from "react";
@@ -13,21 +15,30 @@ const extractPageContent = () => {
     }
 }
 
+const extractPageTOC = () => {
+    const page_toc_container = document.getElementById("page-toc");
+    if (page_toc_container) {
+        const page_toc = page_toc_container.innerHTML;
+        page_toc_container.remove();
+        return page_toc;
+    }
+}
+
 export const MainPage = () => {
 
     const pageContent = extractPageContent();
-    console.log("Page content extracted:", pageContent);
-    console.log("TOC:", window.mkdocs_page_toc);
-    const sections = window.mkdocs_page_toc.map((item) => ({
-      id: item.id,
-      title: item.title,
-    }));
+    const pageTOC = extractPageTOC();
 
   return (
     <MolCraftsDocThemeProvider>
       <BaseLayout config={themeConfig}>
-        <DocumentationLayout theme="molvis" sections={sections}>
-          {pageContent}
+        <DocumentationLayout>
+          <DocSidebar>
+            {pageTOC}
+          </DocSidebar>
+          <DocumentBody>
+            {pageContent}
+          </DocumentBody>
         </DocumentationLayout>
       </BaseLayout>
     </MolCraftsDocThemeProvider>
