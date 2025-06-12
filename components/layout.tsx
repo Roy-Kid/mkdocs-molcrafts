@@ -1,12 +1,44 @@
 import type { ReactNode } from "react";
+import { useState } from "react";
+import { DocumentBody } from "./document-body";
+import { DocsFooter } from "./footer";
+import { DocsNavbar } from "./navbar";
+import { DocSidebar } from "./sidebar";
 import type { IThemeConfig } from "./theme-config";
+
+export type DocTheme = "molpy" | "molpot" | "molvis";
+
+interface Section {
+  title: string;
+  id: string;
+}
 
 interface DocumentationLayoutProps {
   children?: ReactNode;
+  theme?: DocTheme;
+  sections?: Section[];
 }
 
-export const DocumentationLayout = ({ children }: DocumentationLayoutProps) => {
-  return <div className="prose dark:prose-invert max-w-none">{children}</div>;
+export const DocumentationLayout = ({
+  children,
+  theme = "molpy",
+  sections = [],
+}: DocumentationLayoutProps) => {
+  const [activeSectionId, setActiveSectionId] = useState(sections[0]?.id ?? "");
+
+  return (
+    <div className="flex gap-8">
+      {sections.length > 0 && (
+        <DocSidebar
+          theme={theme}
+          sections={sections}
+          activeSectionId={activeSectionId}
+          onSectionClick={setActiveSectionId}
+        />
+      )}
+      <DocumentBody>{children}</DocumentBody>
+    </div>
+  );
 };
 
 export interface NotFoundLayoutProps {
