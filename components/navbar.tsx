@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,14 +11,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useState } from "react";
 
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { buttonVariants } from "./ui/button";
 import { Menu } from "lucide-react";
-import { ModeToggle } from "./mode-toggle";
 import { LogoIcon } from "./Icons.tsx";
+import { ModeToggle } from "./mode-toggle";
 import { themeConfig } from "./theme-config";
-
+import { buttonVariants } from "./ui/button";
 
 interface RouteProps {
   href: string;
@@ -27,29 +26,28 @@ interface RouteProps {
 }
 
 export const Navbar = () => {
-
   const site_name = themeConfig.site_name;
 
   const routeList: RouteProps[] = [];
-    console.log("themeConfig.nav", themeConfig.nav);
-    if (themeConfig.nav) {
-      // nav is array of [{Home: 'index.md'}, ]
-      for (const route of themeConfig.nav) {
-        const [key, value] = Object.entries(route)[0]
-        routeList.push({
-          href: value,
-          label: key,
-        });
-      }
+  console.log("themeConfig.nav", themeConfig.nav);
+  if (themeConfig.nav) {
+    // nav is array of [{Home: 'index.md'}, ]
+    for (const route of themeConfig.nav) {
+      const [key, value] = Object.entries(route)[0];
+      routeList.push({
+        href: value,
+        label: key,
+      });
     }
-    console.log("routeList", routeList);
+  }
+  console.log("routeList", routeList);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
-            <NavigationMenuItem className="font-bold flex items-center">
+          <NavigationMenuItem className="font-bold flex items-center">
             <a
               rel="noreferrer noopener"
               href="/"
@@ -59,16 +57,13 @@ export const Navbar = () => {
               <LogoIcon className="mr-4" />
               {themeConfig.site_name}
             </a>
-            </NavigationMenuItem>
+          </NavigationMenuItem>
 
           {/* mobile */}
           <span className="flex md:hidden">
             <ModeToggle />
 
-            <Sheet
-              open={isOpen}
-              onOpenChange={setIsOpen}
-            >
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="px-2">
                 <Menu
                   className="flex md:hidden h-5 w-5"
@@ -83,7 +78,7 @@ export const Navbar = () => {
                   <SheetTitle className="font-bold text-xl">
                     {site_name}
                   </SheetTitle>
-                  <SheetDescription></SheetDescription>
+                  <SheetDescription />
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
                   {routeList.map(({ href, label }: RouteProps) => (
@@ -115,11 +110,11 @@ export const Navbar = () => {
 
           {/* desktop */}
           <nav className="hidden md:flex gap-2">
-            {routeList.map((route: RouteProps, i) => (
+            {routeList.map((route: RouteProps) => (
               <a
                 rel="noreferrer noopener"
                 href={route.href}
-                key={i}
+                key={route.href}
                 className={`text-[17px] ${buttonVariants({
                   variant: "ghost",
                 })}`}

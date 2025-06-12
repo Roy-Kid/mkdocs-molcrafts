@@ -22,14 +22,17 @@
 </head>
 
 <body class="bg-background text-foreground min-h-screen" role="document">
-    <div id="react-root"> </div>
-    <div id="version"></div>
-    <script id="mkdocs-config" type="application/json">
-      {{ {
-            "site_name": config.site_name,
-            "nav": config.nav, 
-          } | tojson }}
-    </script>
+  <div id="react-root"></div>
+  <div id="page-content" class="hidden">
+    {% block content %}{% endblock %}
+  </div>
+  <div id="version"></div>
+  <script id="mkdocs-config" type="application/json">
+    {{ {
+          "site_name": config.site_name,
+          "nav": config.nav,
+        } | tojson }}
+  </script>
 </body>
 </html>
 {% if page and page.is_homepage %}
