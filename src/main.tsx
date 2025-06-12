@@ -17,7 +17,7 @@ export const MainPage = () => {
   );
 };
 
-const root = createRoot(document.getElementById("main-root"));
+const root = createRoot(document.getElementById("react-root"));
 
 if (root) {
   root.render(<MainPage />);

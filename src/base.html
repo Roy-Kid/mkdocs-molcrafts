@@ -35,13 +35,30 @@
         ]
     {% endmacro %}
 
+    {# Convert nav object to a serialisable structure #}
+    {% macro nav_to_json(nav) %}
+        [
+        {%- for item in nav %}
+            {
+                "title": {{ item.title | tojson }},
+                {%- if item.is_page or item.is_link %}
+                "url": {{ item.url | tojson }}
+                {%- endif %}
+                {%- if item.children %}
+                {%- if item.is_section %}, "children": {{ nav_to_json(item.children) }}{% endif %}
+                {%- endif %}
+            }{%- if not loop.last %},{% endif %}
+        {%- endfor %}
+        ]
+    {% endmacro %}
+
     {%- block content %}
 
     {%- endblock %}
     <script id="mkdocs-config" type="application/json">
       {
         "site_name": {{ config.site_name|tojson }},
-        "nav": {{ nav|tojson }},
+        "nav": {{ nav_to_json(nav) }},
         "theme_color": {{ config.theme_color|tojson }}
       }
     </script>
