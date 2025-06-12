@@ -7,7 +7,11 @@ const tocRaw = document.getElementById("mkdocs-toc")?.textContent ?? "[]";
 
 export interface IThemeConfig {
   site_name: string;
-  nav?: Array<Record<string, string>>;
+  nav?: Array<{
+    title: string;
+    url?: string;
+    children?: unknown[];
+  }>;
   theme_color?: string;
 }
 
