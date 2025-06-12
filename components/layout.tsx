@@ -1,23 +1,18 @@
 import type { ReactNode } from "react";
+import { useState } from "react";
+import { DocumentBody } from "./document-body";
+import { DocsFooter } from "./footer";
+import { DocsNavbar } from "./navbar";
+import { DocSidebar } from "./sidebar";
 import type { IThemeConfig } from "./theme-config";
 
-interface DocumentationLayoutProps {
-  children?: ReactNode;
 }
 
-export const DocumentationLayout = ({ children }: DocumentationLayoutProps) => {
-  return <div className="prose dark:prose-invert max-w-none">{children}</div>;
-};
+  color?: string;
+  color = "purple",
+  const activeClass = `bg-${color}-800`;
 
-export interface NotFoundLayoutProps {
-  children?: ReactNode;
-}
-
-export const NotFoundLayout = ({ children }: NotFoundLayoutProps) => {
-  return (
-    <div className="flex items-center justify-center py-20">{children}</div>
-  );
-};
+          activeClass={activeClass}
 
 interface BaseLayoutProps {
   children: ReactNode;

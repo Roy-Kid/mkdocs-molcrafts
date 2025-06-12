@@ -26,15 +26,12 @@
     {%- block content %}
 
     {%- endblock %}
-    
-    <div id="react-root"></div>
-    <div id="version"></div>
     <script id="mkdocs-config" type="application/json">
-      {{ {
-            "site_name": config.site_name,
-            "nav": config.nav, 
-          } | tojson }}
+            "nav": config.nav,
+            "color": config.theme_color
+      var mkdoc_nav = {{ nav }};
     </script>
+    <div id="react-root"></div>
 </body>
 </html>
 {% if page and page.is_homepage %}
