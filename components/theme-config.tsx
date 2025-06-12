@@ -1,3 +1,4 @@
+  color?: string;
 
 interface IThemeConfig {
   config: {

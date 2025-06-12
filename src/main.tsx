@@ -1,6 +1,6 @@
 import { pageContent, toc } from "@/components/page-data";
 const sections = toc.map((item) => ({ id: item.id, title: item.title }));
-          {/* biome-ignore lint/security/noDangerouslySetInnerHtml: page content comes from mkdocs */}
+        <DocumentationLayout color={themeConfig.color} sections={sections}>
           <div dangerouslySetInnerHTML={{ __html: pageContent }} />
     <MolCraftsDocThemeProvider>
       <BaseLayout config={themeConfig}>

@@ -27,7 +27,8 @@
 
     {%- endblock %}
     <script id="mkdocs-config" type="application/json">
-      var mkdoc_config = {{ config }};
+            "nav": config.nav,
+            "color": config.theme_color
       var mkdoc_nav = {{ nav }};
     </script>
     <div id="react-root"></div>

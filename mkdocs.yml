@@ -4,6 +4,8 @@ theme:
   name: null
   custom_dir: 'dist/'
 
+theme_color: purple
+
 nav:
   - Home: index.md
   - About: about.md

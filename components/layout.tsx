@@ -6,30 +6,13 @@ import { DocsNavbar } from "./navbar";
 import { DocSidebar } from "./sidebar";
 import type { IThemeConfig } from "./theme-config";
 
-interface DocumentationLayoutProps {
-  children?: ReactNode;
 }
 
-export const DocumentationLayout = ({
-  children,
-}: DocumentationLayoutProps) => {
+  color?: string;
+  color = "purple",
+  const activeClass = `bg-${color}-800`;
 
-  return (
-    <div className="flex gap-8">
-       { children }
-    </div>
-  );
-};
-
-export interface NotFoundLayoutProps {
-  children?: ReactNode;
-}
-
-export const NotFoundLayout = ({ children }: NotFoundLayoutProps) => {
-  return (
-    <div className="flex items-center justify-center py-20">{children}</div>
-  );
-};
+          activeClass={activeClass}
 
 interface BaseLayoutProps {
   children: ReactNode;

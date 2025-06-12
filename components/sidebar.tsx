@@ -1,14 +1,11 @@
 import type React from "react";
 interface DocSidebarProps {
-  children: React.ReactNode;
-}
-
-export const DocSidebar: React.FC<DocSidebarProps> = ({
-  children
+  activeClass: string;
+  activeClass,
 }) => {
   return (
     <div className="w-64 pr-4">
-        { children }
-    </div>
+                    ? activeClass
+                    : "text-gray-600 dark:text-gray-300 hover:underline"
   );
 };
