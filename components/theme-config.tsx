@@ -1,16 +1,8 @@
-  color?: string;
-
+const raw = document.getElementById("mkdocs-config").textContent;
+const themeConfig = JSON.parse(raw);
 interface IThemeConfig {
-  config: {
-    site_name: string;
-  },
-  nav: object,
-};
-
-const themeConfig = {
-  config: window.mkdoc_config,
-  nav: window.mkdoc_nav,
+  site_name: string;
+  nav?: Array<Record<string, string>>;
 }
-
 export { themeConfig };
 export type { IThemeConfig };

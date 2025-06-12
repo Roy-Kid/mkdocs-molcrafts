@@ -1,23 +1,21 @@
-import { pageContent, toc } from "@/components/page-data";
-const sections = toc.map((item) => ({ id: item.id, title: item.title }));
-        <DocumentationLayout color={themeConfig.color} sections={sections}>
-          <div dangerouslySetInnerHTML={{ __html: pageContent }} />
+import { BaseLayout } from "@/components/base-layout";
+import { DocumentationLayout } from "@/components/layout";
+import { themeConfig } from "@/components/theme-config";
+import { MolCraftsDocThemeProvider } from "@/components/theme-provider";
+import * as React from "react";
+import { createRoot } from "react-dom/client";
+
+export const MainPage = () => {
+  return (
     <MolCraftsDocThemeProvider>
       <BaseLayout config={themeConfig}>
-        <DocumentationLayout>
-          <DocSidebar>
-            {pageTOC}
-          </DocSidebar>
-          <DocumentBody>
-            {pageContent}
-          </DocumentBody>
-        </DocumentationLayout>
+        <DocumentationLayout />
       </BaseLayout>
     </MolCraftsDocThemeProvider>
   );
 };
 
-const root = createRoot(document.getElementById("react-root"));
+const root = createRoot(document.getElementById("main-root"));
 
 if (root) {
   root.render(<MainPage />);

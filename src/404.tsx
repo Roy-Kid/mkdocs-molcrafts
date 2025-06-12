@@ -1,4 +1,5 @@
-import { NotFoundLayout, BaseLayout } from "@/components/layout";
+import { BaseLayout } from "@/components/base-layout";
+import { NotFoundLayout } from "@/components/layout";
 import { themeConfig } from "@/components/theme-config";
 import { MolCraftsDocThemeProvider } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
